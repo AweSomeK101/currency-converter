@@ -6,4 +6,4 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
     Made a Currency converter app in React.js which also has a graph showing last 15 days rate.
     Used chart.js for that.
 
-    Check out the app at [netlify](https://sam-currency-converter.netlify.app/) or [github-pages](https://awesomek101.github.io/currency-converter/)
+    Check out the app at [netlify] (https://sam-currency-converter.netlify.app/) or [github-pages] (https://awesomek101.github.io/currency-converter/)
