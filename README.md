@@ -4,4 +4,5 @@ Made a Currency converter app in React.js which also has a graph showing last 15
 
 Used chart.js for that.  
 
-Check out the app at [github-pages](https://awesomek101.github.io/currency-converter/)
+Check out the app at [netlify](https://spectacular-puppy-d40f5c.netlify.app/)
+
