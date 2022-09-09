@@ -10,15 +10,22 @@ function Chart() {
 
   useEffect(() => {
     if (state.chart) {
-      fetch(
-        `https://api.exchangeratesapi.io/history?end_at=${Moment().format(
-          "YYYY-MM-DD"
-        )}&start_at=${Moment()
-          .subtract(15, "days")
-          .format("YYYY-MM-DD")}&symbols=${state.currencyTo}&base=${
-          state.currencyFrom
-        }`
-      )
+      var myHeaders = new Headers();
+      myHeaders.append("apikey", process.env.REACT_APP_API_KEY);
+
+      var requestOptions = {
+        method: 'GET',
+        redirect: 'follow',
+        headers: myHeaders
+      };
+
+      fetch(`https://api.apilayer.com/exchangerates_data/timeseries?start_date=${Moment()
+      .subtract(15, "days")
+      .format("YYYY-MM-DD")}&symbols=${state.currencyTo}&base=${
+      state.currencyFrom
+    }&end_date=${Moment().format(
+        "YYYY-MM-DD"
+      )}`, requestOptions)
         .then((res) => res.json())
         .then((data) => {
           setLabels(
@@ -40,7 +47,10 @@ function Chart() {
               new Moment(b.date).format("YYYYMMDD")
           );
           setRates(arr.map((e) => e.rate));
-        });
+        })
+        .catch(err => {
+          console.error(err);
+        })
       setState({
         ...state,
         chart: false,

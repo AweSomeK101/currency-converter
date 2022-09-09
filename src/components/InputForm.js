@@ -16,9 +16,16 @@ function InputForm() {
     e.preventDefault();
 
     if (flag) {
-      fetch(
-        `https://api.exchangeratesapi.io/latest?symbols=${currencyTo}&base=${currencyFrom}`
-      )
+      var myHeaders = new Headers();
+      myHeaders.append("apikey", process.env.REACT_APP_API_KEY);
+
+      var requestOptions = {
+        method: 'GET',
+        redirect: 'follow',
+        headers: myHeaders
+      };
+
+      fetch(`https://api.apilayer.com/exchangerates_data/latest?symbols=${currencyTo}&base=${currencyFrom}`, requestOptions)
         .then((res) => res.json())
         .then((data) => {
           setRate(Object.values(data.rates)[0]);
@@ -31,7 +38,10 @@ function InputForm() {
             flag: true,
             chart: true,
           });
-        });
+        })
+        .catch(err => {
+          console.error(err);
+        })
       flag = false;
     } else {
       setState({
@@ -43,11 +53,20 @@ function InputForm() {
   }
 
   useEffect(()=>{
-    fetch("https://api.exchangeratesapi.io/latest")
+    var myHeaders = new Headers();
+    myHeaders.append("apikey", process.env.REACT_APP_API_KEY);
+
+    var requestOptions = {
+      method: 'GET',
+      redirect: 'follow',
+      headers: myHeaders
+    };
+    fetch("https://api.apilayer.com/exchangerates_data/symbols", requestOptions)
     .then(res=> res.json())
     .then(data=>{
-      setList(Object.keys(data.rates))
+      setList(Object.keys(data.symbols))
     })
+    .catch(err => console.error(err))
   }, [])
 
   return (

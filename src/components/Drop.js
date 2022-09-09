@@ -24,7 +24,7 @@ function Drop({ currency, upVal, list }) {
           );
         })}
       </select>
-      <span class="focus"></span>
+      <span className="focus"></span>
     </div>
   );
 }
